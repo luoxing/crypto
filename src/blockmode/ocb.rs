@@ -77,10 +77,21 @@ macro_rules! impl_block_cipher_with_ocb_mode {
                 stretch[..Self::BLOCK_LEN].copy_from_slice(&ktop);
 
                 unsafe {
-                    let a = (&ktop[0..]).as_ptr() as *const u64;
-                    let b = (&ktop[1..]).as_ptr() as *const u64;
-                    let c = *a ^ *b;
-                    stretch[Self::BLOCK_LEN..Self::STRETCH_LEN].copy_from_slice(&c.to_ne_bytes());
+                    //let a = (&ktop[0..]).as_ptr() as *const u64;
+                    //let b = (&ktop[1..]).as_ptr() as *const u64;
+                    //let c = *a ^ *b;
+                    //stretch[Self::BLOCK_LEN..Self::STRETCH_LEN].copy_from_slice(&c.to_ne_bytes());
+                    
+                    let mut c = [0u8; 8];
+                    c[0] = ktop[0] ^ ktop[1];
+                    c[1] = ktop[1] ^ ktop[2];
+                    c[2] = ktop[2] ^ ktop[3];
+                    c[3] = ktop[3] ^ ktop[4];
+                    c[4] = ktop[4] ^ ktop[5];
+                    c[5] = ktop[5] ^ ktop[6];
+                    c[6] = ktop[6] ^ ktop[7];
+                    c[7] = ktop[7] ^ ktop[8];
+                    stretch[Self::BLOCK_LEN..Self::STRETCH_LEN].copy_from_slice(&c[..]);
                 }
 
                 // Offset_0 = Stretch[1+bottom..128+bottom]

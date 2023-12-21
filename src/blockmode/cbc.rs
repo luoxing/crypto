@@ -100,23 +100,7 @@ impl_block_cipher_with_cbc_mode!(Camellia128Cbc, Camellia128);
 impl_block_cipher_with_cbc_mode!(Camellia192Cbc, Camellia192);
 impl_block_cipher_with_cbc_mode!(Camellia256Cbc, Camellia256);
 
-#[cfg(test)]
-#[bench]
-fn bench_aes128_cbc_enc(b: &mut test::Bencher) {
-    let key = hex::decode("00000000000000000000000000000000").unwrap();
-    let ivec = hex::decode("000102030405060708090a0b0c0d0e0f").unwrap();
-    let mut iv = [0u8; Aes128Cbc::IV_LEN];
-    iv.copy_from_slice(&ivec);
 
-    let mut cipher = Aes128Cbc::new(&key);
-
-    b.bytes = Aes128Cbc::BLOCK_LEN as u64;
-    b.iter(|| {
-        let mut ciphertext = test::black_box([1u8; Aes128Cbc::BLOCK_LEN]);
-        cipher.encrypt(&iv, &mut ciphertext);
-        ciphertext
-    })
-}
 
 #[test]
 fn test_aes128_cbc_enc() {

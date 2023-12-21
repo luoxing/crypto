@@ -82,24 +82,6 @@ impl_block_cipher_with_ofb_mode!(Aria128Ofb, Aria128);
 impl_block_cipher_with_ofb_mode!(Aria192Ofb, Aria192);
 impl_block_cipher_with_ofb_mode!(Aria256Ofb, Aria256);
 
-#[cfg(test)]
-#[bench]
-fn bench_aes128_ofb_enc(b: &mut test::Bencher) {
-    let key = hex::decode("00000000000000000000000000000000").unwrap();
-    let ivec = hex::decode("000102030405060708090a0b0c0d0e0f").unwrap();
-    let mut iv = [0u8; Aes128Ofb::IV_LEN];
-    iv.copy_from_slice(&ivec);
-
-    let cipher = Aes128Ofb::new(&key);
-
-    b.bytes = Aes128Ofb::BLOCK_LEN as u64;
-    b.iter(|| {
-        let mut ciphertext = test::black_box([0u8; Aes128Ofb::BLOCK_LEN]);
-        cipher.encrypt_slice(&iv, &mut ciphertext);
-        ciphertext
-    })
-}
-
 #[test]
 fn test_aes128_ofb() {
     let key = hex::decode("2b7e151628aed2a6abf7158809cf4f3c").unwrap();

@@ -1,6 +1,6 @@
-extern crate crypto2;
+extern crate crypto;
 
-use crypto2::aeadcipher::Chacha20Poly1305;
+use crypto::aeadcipher::Chacha20Poly1305;
 
 fn main() {
     let key = [

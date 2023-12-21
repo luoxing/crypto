@@ -212,6 +212,7 @@ fn transform(
     v
 }
 
+/*
 #[cfg(test)]
 #[bench]
 fn bench_blake3_transform(b: &mut test::Bencher) {
@@ -231,6 +232,7 @@ fn bench_blake3_u32x16_from_le_bytes(b: &mut test::Bencher) {
 
     b.iter(|| u32x16_from_le_bytes(&bytes))
 }
+ */
 
 // 2.5 Parent Node Chaining Values
 //

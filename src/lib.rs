@@ -1,10 +1,7 @@
-#![cfg_attr(test, feature(test))]
 #![allow(unused_macros, unused_assignments)]
 
 #[cfg(test)]
 extern crate hex;
-#[cfg(test)]
-extern crate test;
 
 pub mod mem;
 mod util;

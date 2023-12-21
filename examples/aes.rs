@@ -1,6 +1,6 @@
-extern crate crypto2;
+extern crate crypto;
 
-use crypto2::blockcipher::Aes128;
+use crypto::blockcipher::Aes128;
 
 fn main() {
     let key = [

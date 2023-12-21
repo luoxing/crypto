@@ -410,24 +410,6 @@ impl_block_cipher_with_cfb128_mode!(Aria128Cfb128, Aria128);
 impl_block_cipher_with_cfb128_mode!(Aria192Cfb128, Aria192);
 impl_block_cipher_with_cfb128_mode!(Aria256Cfb128, Aria256);
 
-#[cfg(test)]
-#[bench]
-fn bench_aes128_cfb128_enc(b: &mut test::Bencher) {
-    let key = hex::decode("00000000000000000000000000000000").unwrap();
-    let ivec = hex::decode("000102030405060708090a0b0c0d0e0f").unwrap();
-    let mut iv = [0u8; Aes128Cfb128::IV_LEN];
-    iv.copy_from_slice(&ivec);
-
-    let cipher = Aes128Cfb128::new(&key);
-
-    b.bytes = Aes128Cfb128::BLOCK_LEN as u64;
-    b.iter(|| {
-        let mut ciphertext = test::black_box([0u8; Aes128Cfb128::BLOCK_LEN]);
-        cipher.encrypt_slice(&iv, &mut ciphertext);
-        ciphertext
-    })
-}
-
 #[test]
 fn test_aes128_cfb8() {
     let key = hex::decode("2b7e151628aed2a6abf7158809cf4f3c").unwrap();
